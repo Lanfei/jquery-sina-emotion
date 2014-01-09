@@ -13,8 +13,6 @@ jQuery Sina Emotion
  - 自带智能表情解析方法（但还是建议表情解析在服务端进行）
  - 兼容IE6+、Chrome、Firefox、Opera等各种浏览器
 
-<!--more-->
-
 使用方法
 ---
 
