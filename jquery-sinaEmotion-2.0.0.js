@@ -66,6 +66,11 @@
 
 	var loadEmotions = function(callback) {
 
+		if(emotions){
+			callback && callback();
+			return;
+		}
+
 		emotions = {};
 		categories = [];
 		emotionsMap = {};
@@ -101,9 +106,7 @@
 				emotionsMap[item.phrase] = item.icon;
 			}
 
-			showCatPage(0);
-			showCategory(defCategory);
-			callback && callback(data);
+			callback && callback();
 		});
 	};
 
@@ -165,7 +168,7 @@
 		} else {
 			$('#sinaEmotion .pages').hide();
 		}
-	}
+	};
 
 	$.fn.sinaEmotion = function(options) {
 
@@ -185,9 +188,10 @@
 
 			$this.click(function(event) {
 				var offset = $this.offset();
-				if (!emotions) {
-					loadEmotions();
-				}
+				loadEmotions(function(){
+					showCategory(defCategory);
+					showCatPage(0);
+				});
 				$('#sinaEmotion').css({
 					top: offset.top + $this.outerHeight() + 5,
 					left: offset.left
@@ -207,28 +211,23 @@
 			opts = $.extend({}, $.fn.sinaEmotion.defaults, options);
 		}
 
-		if (!emotions) {
-			loadEmotions(function() {
-				that.parseEmotion();
+		loadEmotions(function() {
+			that.each(function() {
+				var $this = $(this);
+				var html = $this.html();
+				html = html.replace(/<.*?>/g, function($1) {
+					$1 = $1.replace('[', '&#91;');
+					$1 = $1.replace(']', '&#93;');
+					return $1;
+				}).replace(/\[[^\[\]]*?\]/g, function($1) {
+					var url = emotionsMap[$1];
+					if (url) {
+						return '<img src="' + url + '" alt="' + $1 + '" />';
+					}
+					return $1;
+				});
+				$this.html(html);
 			});
-			return;
-		}
-
-		this.each(function() {
-			var $this = $(this);
-			var html = $this.html();
-			html = html.replace(/<.*?>/g, function($1) {
-				$1 = $1.replace('[', '&#91;');
-				$1 = $1.replace(']', '&#93;');
-				return $1;
-			}).replace(/\[[^\[\]]*?\]/g, function($1) {
-				var url = emotionsMap[$1];
-				if (url) {
-					return '<img src="' + url + '" alt="' + $1 + '" />';
-				}
-				return $1;
-			});
-			$this.html(html);
 		});
 
 		return this;

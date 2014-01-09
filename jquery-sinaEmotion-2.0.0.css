@@ -1,11 +1,11 @@
 #sinaEmotion{
 	z-index: 999;
-	width: 375px;
+	width: 373px;
+	padding: 10px;
 	display: none;
 	font-size: 12px;
 	background: #fff;
 	overflow: hidden;
-	padding: 5px 10px;
 	position: absolute;
 	border: 1px solid #E8E8E8;
 }
@@ -95,15 +95,15 @@
 
 #sinaEmotion .pages{
 	float: right;
-	margin-top: 5px;
+	margin-top: 8px;
 }
 
 #sinaEmotion .page{
 	float: left;
 	height: 22px;
-	margin: 5px;
 	padding: 0 8px;
 	color: #0a8cd2;
+	margin-left: 5px;
 	line-height: 22px;
 	border-radius: 1px;
 	background: #f2f2f2;
