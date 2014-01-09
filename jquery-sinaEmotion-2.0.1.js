@@ -177,17 +177,18 @@
 		}
 
 		this.each(function() {
+
 			var $this = $(this);
 			var $target = $(opts.target);
+
 			if (!$target.length) {
-				$target = $this.parents('form').find('textarea:eq(0)');
-			}
-			if (!$target.length) {
-				$target = $this.parents('form').find('input[type=text]:eq(0)');
+				$target = $this.parents('form').find('textarea:eq(0),input[type=text]:eq(0)');
 			}
 
 			$this.click(function(event) {
+
 				var offset = $this.offset();
+
 				loadEmotions(function(){
 					showCategory(defCategory);
 					showCatPage(0);
@@ -196,6 +197,7 @@
 					top: offset.top + $this.outerHeight() + 5,
 					left: offset.left
 				}).data('target', $target).show();
+
 				return false;
 			});
 		});
@@ -213,8 +215,10 @@
 
 		loadEmotions(function() {
 			that.each(function() {
+
 				var $this = $(this);
 				var html = $this.html();
+
 				html = html.replace(/<.*?>/g, function($1) {
 					$1 = $1.replace('[', '&#91;');
 					$1 = $1.replace(']', '&#93;');
@@ -226,6 +230,7 @@
 					}
 					return $1;
 				});
+				
 				$this.html(html);
 			});
 		});
@@ -261,7 +266,7 @@
 
 	// default options
 	// rows：每页显示的表情数
-	// target：表情所要插入的文本框
+	// target：表情所要插入的文本框（默认为同一form表单内的第一个文本框）
 	// language：简体（cnname）、繁体（twname）
 	// appKey：你在新浪微博开放平台的应用ID
 	$.fn.sinaEmotion.defaults = {
