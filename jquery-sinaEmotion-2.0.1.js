@@ -1,5 +1,5 @@
 /*!
- * jQuery Sina Emotion v2.0.0
+ * jQuery Sina Emotion v2.0.1
  * http://www.clanfei.com/
  *
  * Copyright 2012-2014 Lanfei
