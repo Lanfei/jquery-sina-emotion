@@ -16,18 +16,27 @@ jQuery Sina Emotion
 使用方法
 ---
 
-###基础用法###
+###使用方法###
 
-	$(selector).sinaEmotion();
-
-###高级用法###
-
-	$(selector).sinaEmotion({
-		rows: 72,				// 每页显示的表情数
-		target: null,			// 表情所要插入的文本框（默认为同一form表单内的第一个文本框）
-		language: 'cnname',		// 简体（cnname）、繁体（twname）
-		appKey: '1362404091'	// 你在新浪微博开放平台的应用ID
+	// 未指定插入文本框时，自动寻找同表单中第一个textarea或input[type=text]元素
+	$(selector).click(function(event){
+		$(this).sinaEmotion();
+		event.stopPropagation();
 	});
+
+	// 手动指定插入文本框
+	$(selector).click(function(event){
+		$(this).sinaEmotion(target);
+		event.stopPropagation();
+	});
+
+###参数配置###
+
+	$.fn.sinaEmotion.options = {
+		rows: 72,				// 每页显示的表情数
+		language: 'cnname',		// 简体（cnname）、繁体（twname）
+		appKey: '1362404091'	// 新浪微博开放平台的应用ID
+	};
 
 ###表情解析###
 
@@ -50,6 +59,11 @@ jQuery Sina Emotion
 	 - 全新重构插件代码
 	 - 新增表情解析方法
 	 - 开源于[GitHub][4]及[OsChina][5]
+ - 2.1.0
+	 - 修复多次调用插件而对象文本框不同时，表情文本插入对象错乱问题
+	 - 修复表情接口未返回时，多次调用解析表情方法未成功解析的问题
+	 - 修改表情选择框显示机制，提高使用自由度（与低版本不兼容，升级插件时请注意修改调用方式，详见Demo）
+	 - 一些优化
 
 
   [1]: http://www.clanfei.com/2012/08/1644.html

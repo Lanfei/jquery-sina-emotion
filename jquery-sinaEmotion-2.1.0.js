@@ -1,21 +1,25 @@
 /*!
- * jQuery Sina Emotion v2.0.1
+ * jQuery Sina Emotion v2.1.0
  * http://www.clanfei.com/
  *
  * Copyright 2012-2014 Lanfei
  * Released under the MIT license
  *
- * Date: 2014-01-09T00:24:18+0800
+ * Date: 2014-05-19T20:10:23+0800
  */
 (function($) {
 
-	var opts;
+	var $target;
+
+	var options;
 
 	var emotions;
 
 	var categories;
 
 	var emotionsMap;
+
+	var parsingArray = [];
 
 	var defCategory = '默认';
 
@@ -57,7 +61,7 @@
 			}
 		}).delegate('.face', {
 			click: function(event) {
-				var $target = $('#sinaEmotion').hide().data('target');
+				$('#sinaEmotion').hide();
 				$target.insertText($(this).children('img').prop('alt'));
 				event.preventDefault();
 			}
@@ -71,6 +75,10 @@
 			return;
 		}
 
+		if (!options) {
+			options = $.fn.sinaEmotion.options;
+		}
+
 		emotions = {};
 		categories = [];
 		emotionsMap = {};
@@ -80,8 +88,8 @@
 		initEvents();
 
 		$.getJSON('https://api.weibo.com/2/emotions.json?callback=?', {
-			source: opts.appKey,
-			language: opts.language
+			source: options.appKey,
+			language: options.language
 		}, function(json) {
 
 			var item, category;
@@ -105,6 +113,9 @@
 
 				emotionsMap[item.phrase] = item.icon;
 			}
+
+			$(parsingArray).parseEmotion();
+			parsingArray = null;
 
 			callback && callback();
 		});
@@ -138,15 +149,14 @@
 		var face;
 		var html = '';
 		var pageHtml = '';
-		var rows = opts.rows;
+		var rows = options.rows;
 		var category = $('#sinaEmotion .categories').data('category');
 		var faces = emotions[category];
-		var length = faces.length;
 		page = page || 0;
 
 		for (var i = page * rows, l = faces.length; i < l && i < (page + 1) * rows; ++i) {
 			face = faces[i];
-			html += '<li class="item"><a href="#" class="face"><img src="' + face.icon + '" alt="' + face.phrase + '" /></a></li>';
+			html += '<li class="item"><a href="#" class="face"><img class="sina-emotion" src="' + face.icon + '" alt="' + face.phrase + '" /></a></li>';
 		}
 
 		$('#sinaEmotion .faces').html(html);
@@ -155,7 +165,7 @@
 	var showPages = function() {
 
 		var html = '';
-		var rows = opts.rows;
+		var rows = options.rows;
 		var category = $('#sinaEmotion .categories').data('category');
 		var faces = emotions[category];
 		var length = faces.length;
@@ -170,51 +180,49 @@
 		}
 	};
 
-	$.fn.sinaEmotion = function(options) {
+	/**
+	 * 为某个元素设置点击事件，点击弹出表情选择窗口
+	 * @param  {[type]} target [description]
+	 * @return {[type]}        [description]
+	 */
+	$.fn.sinaEmotion = function(target) {
 
-		if (!opts) {
-			opts = $.extend({}, $.fn.sinaEmotion.defaults, options);
-		}
+		target = target || function(){
+			return $(this).parents('form').find('textarea,input[type=text]').eq(0);
+		};
 
-		this.each(function() {
+		var $that = $(this).last();
+		var offset = $that.offset();
 
-			var $this = $(this);
-			var $target = $(opts.target);
-
-			if (!$target.length) {
-				$target = $this.parents('form').find('textarea:eq(0),input[type=text]:eq(0)');
+		if($that.is(':visible')){
+			if(typeof target == 'function'){
+				$target = target.call($that);
+			}else{
+				$target = $(target);
 			}
 
-			$this.click(function(event) {
-
-				var offset = $this.offset();
-
-				loadEmotions(function(){
-					showCategory(defCategory);
-					showCatPage(0);
-				});
-				$('#sinaEmotion').css({
-					top: offset.top + $this.outerHeight() + 5,
-					left: offset.left
-				}).data('target', $target).show();
-
-				return false;
+			loadEmotions(function(){
+				showCategory(defCategory);
+				showCatPage(0);
 			});
-		});
+			$('#sinaEmotion').css({
+				top: offset.top + $that.outerHeight() + 5,
+				left: offset.left
+			}).show();
+		}
 
 		return this;
 	};
 
-	$.fn.parseEmotion = function(options) {
+	$.fn.parseEmotion = function() {
 
-		var that = this;
-
-		if (!opts) {
-			opts = $.extend({}, $.fn.sinaEmotion.defaults, options);
-		}
-
-		loadEmotions(function() {
-			that.each(function() {
+		if(! categories){
+			parsingArray = $(this);
+			loadEmotions();
+		}else if(categories.length == 0){
+			parsingArray = parsingArray.add($(this));
+		}else{
+			$(this).each(function() {
 
 				var $this = $(this);
 				var html = $this.html();
@@ -226,14 +234,14 @@
 				}).replace(/\[[^\[\]]*?\]/g, function($1) {
 					var url = emotionsMap[$1];
 					if (url) {
-						return '<img src="' + url + '" alt="' + $1 + '" />';
+						return '<img class="sina-emotion" src="' + url + '" alt="' + $1 + '" />';
 					}
 					return $1;
 				});
-				
+
 				$this.html(html);
 			});
-		});
+		}
 
 		return this;
 	};
@@ -264,15 +272,9 @@
 		return this;
 	}
 
-	// default options
-	// rows：每页显示的表情数
-	// target：表情所要插入的文本框（默认为同一form表单内的第一个文本框）
-	// language：简体（cnname）、繁体（twname）
-	// appKey：你在新浪微博开放平台的应用ID
-	$.fn.sinaEmotion.defaults = {
-		rows: 72,
-		target: null,
-		language: 'cnname',
-		appKey: '1362404091'
+	$.fn.sinaEmotion.options = {
+		rows: 72,				// 每页显示的表情数
+		language: 'cnname',		// 简体（cnname）、繁体（twname）
+		appKey: '1362404091'	// 新浪微博开放平台的应用ID
 	};
 })(jQuery);

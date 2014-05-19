@@ -10,10 +10,6 @@
 	border: 1px solid #E8E8E8;
 }
 
-#sinaEmotion img{
-	border: none;
-}
-
 #sinaEmotion .right{
 	float: right;
 }
@@ -50,7 +46,7 @@
 	float: left;
 	color: #0a8cd2;
 	cursor: pointer;
-	padding: 0 10px;
+	padding: 0 8px;
 	line-height: 22px;
 	border-radius: 4px;
 	white-space: nowrap;
@@ -114,4 +110,9 @@
 	color: #333;
 	cursor: default;
 	background: #fff;
+}
+
+.sina-emotion{
+	border: 0;
+	vertical-align: text-bottom;
 }

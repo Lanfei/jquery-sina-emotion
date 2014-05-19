@@ -3,13 +3,10 @@
 <head>
 	<title>jQuery新浪表情插件Demo</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" type="text/css" href="jquery-sinaEmotion-2.0.1.min.css" />
+	<link rel="stylesheet" type="text/css" href="jquery-sinaEmotion-2.1.0.css" />
 	<style type="text/css">
 		body{
 			font-size:12pt;
-		}
-		img{
-			border: 0;
 		}
 		.comment_body{
 			display:none;
@@ -27,16 +24,16 @@
 <body>
 	<form class="publish">
 		<div id="result"></div>
-		<textarea class="content" id="content"></textarea><br />
+		<textarea class="content" id="content">欢迎使用jQuery Sina Emotion[呵呵]</textarea><br />
 		<input class="face" type="button" value="表情" />
-		<input class="submit" type="button" value="发布" />
+		<input class="submit" type="button" value="解析" />
 	</form>
 	<form class="comment">
 		<a href="#" class="reply">评论</a>
 		<div class="comment_body">
 			<input class="content" type="text" size="70" />
 			<input class="face" type="button" value="表情" />
-			<input class="submit" type="button" value="发布" />
+			<input class="submit" type="button" value="解析" />
 		</div>
 	</form>
 	<form class="comment">
@@ -44,7 +41,7 @@
 		<div class="comment_body">
 			<input class="content" type="text" size="70" />
 			<input class="face" type="button" value="表情" />
-			<input class="submit" type="button" value="发布" />
+			<input class="submit" type="button" value="解析" />
 		</div>
 	</form>
 	<form class="comment">
@@ -52,7 +49,7 @@
 		<div class="comment_body">
 			<input class="content" type="text" size="70" />
 			<input class="face" type="button" value="表情" />
-			<input class="submit" type="button" value="发布" />
+			<input class="submit" type="button" value="解析" />
 		</div>
 	</form>
 	<form class="comment">
@@ -60,7 +57,7 @@
 		<div class="comment_body">
 			<input class="content" type="text" size="70" />
 			<input class="face" type="button" value="表情" />
-			<input class="submit" type="button" value="发布" />
+			<input class="submit" type="button" value="解析" />
 		</div>
 	</form>
 	<form class="comment">
@@ -68,12 +65,12 @@
 		<div class="comment_body">
 			<input class="content" type="text" size="70" />
 			<input class="face" type="button" value="表情" />
-			<input class="submit" type="button" value="发布" />
+			<input class="submit" type="button" value="解析" />
 		</div>
 	</form>
 
 	<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="jquery-sinaEmotion-2.0.1.min.js"></script>
+	<script type="text/javascript" src="jquery-sinaEmotion-2.1.0.js"></script>
 	<script type="text/javascript">
 		$('body').delegate('.reply', {
 			click : function(event){
@@ -87,7 +84,14 @@
 				$('#result').html(content).parseEmotion();
 			}
 		});
-		$('.face').sinaEmotion();
+		$('.face').bind({
+			click: function(event){
+				if(! $('#sinaEmotion').is(':visible')){
+					$(this).sinaEmotion();
+					event.stopPropagation();
+				}
+			}
+		});
 	</script>
 </body>
 </html>
