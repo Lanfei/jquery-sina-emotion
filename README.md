@@ -1,22 +1,21 @@
-jQuery Sina Emotion
-===================
+##jQuery Sina Emotion
 
-这是什么？
------
+###这是什么？
 
 一个用来方便快速地创建新浪微博表情选择对话框的jQuery插件。
 
-有何特点
-----
+###有何特点
 
  - 使用简单，一行代码即可创创建出表情选择对话框
  - 自带智能表情解析方法（但还是建议表情解析在服务端进行）
  - 兼容IE6+、Chrome、Firefox、Opera等各种浏览器
+<!--more-->
 
-使用方法
----
+###插件演示
 
-###使用方法###
+<iframe style="width: 100%; height: 300px" src="http://sandbox.runjs.cn/show/biebksny" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+###使用方法
 
 	// 未指定插入文本框时，自动寻找同表单中第一个textarea或input[type=text]元素
 	$(selector).click(function(event){
@@ -30,7 +29,7 @@ jQuery Sina Emotion
 		event.stopPropagation();
 	});
 
-###参数配置###
+###参数配置
 
 	$.fn.sinaEmotion.options = {
 		rows: 72,				// 每页显示的表情数
@@ -38,14 +37,17 @@ jQuery Sina Emotion
 		appKey: '1362404091'	// 新浪微博开放平台的应用ID
 	};
 
-###表情解析###
+###表情解析
 
 	$(selector).parseEmotion();
 
-> 具体的使用方法请看Demo
+具体的使用方法请看Demo
 
-更新日志
-----
+###获取插件
+ - [GitHub](https://github.com/Lanfei/jQuery-Sina-Emotion)
+ - [开源中国](http://git.oschina.net/lanfei/jQuery-Sina-Emotion)
+
+###更新日志
 
  - 1.0.0（2012.08.22）
 	 - [jQuery Sina Emotion v1.0][1] 诞生
