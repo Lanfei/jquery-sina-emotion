@@ -1,21 +1,22 @@
-#sinaEmotion{
+#sina-emotion {
 	z-index: 999;
 	width: 373px;
 	padding: 10px;
 	display: none;
 	font-size: 12px;
 	background: #fff;
-	overflow: hidden;
 	position: absolute;
-	border: 1px solid #E8E8E8;
+	border-radius: 3px;
+	border: 1px solid #ccc;
+	box-shadow: 0 4px 20px 1px rgba(0, 0, 0, 0.2);
 }
 
-#sinaEmotion .right{
+#sina-emotion .switch {
 	float: right;
 }
 
-#sinaEmotion .prev,
-#sinaEmotion .next{
+#sina-emotion .prev,
+#sina-emotion .next {
 	float: left;
 	color: #555;
 	width: 22px;
@@ -28,21 +29,21 @@
 	text-decoration: none;
 }
 
-#sinaEmotion .item{
+#sina-emotion .item {
 	float: left;
 	list-style: none;
 }
 
-#sinaEmotion .categories,
-#sinaEmotion .faces,
-#sinaEmotion .pages{
+#sina-emotion .categories,
+#sina-emotion .faces,
+#sina-emotion .pages {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 	_zoom: 1;
 }
 
-#sinaEmotion .category{
+#sina-emotion .category {
 	float: left;
 	color: #0a8cd2;
 	cursor: pointer;
@@ -52,24 +53,24 @@
 	white-space: nowrap;
 }
 
-#sinaEmotion .category:hover{
+#sina-emotion .category:hover {
 	text-decoration: underline;
 }
 
-#sinaEmotion .categories .current,
-#sinaEmotion .categories .current:hover{
+#sina-emotion .categories .current,
+#sina-emotion .categories .current:hover {
 	color: #333;
 	cursor: default;
 	background: #e6e6e6;
 	text-decoration: none;
 }
 
-#sinaEmotion .faces{
+#sina-emotion .faces {
 	width: 372px;
 	padding: 11px 0 0 1px;
 }
 
-#sinaEmotion .face{
+#sina-emotion .face {
 	z-index: 1;
 	float: left;
 	width: 26px;
@@ -84,17 +85,17 @@
 	_display: inline;
 }
 
-#sinaEmotion .face:hover{
+#sina-emotion .face:hover {
 	z-index: 2;
 	border: 1px solid #0095cd;
 }
 
-#sinaEmotion .pages{
+#sina-emotion .pages {
 	float: right;
 	margin-top: 8px;
 }
 
-#sinaEmotion .page{
+#sina-emotion .page {
 	float: left;
 	height: 22px;
 	padding: 0 8px;
@@ -106,13 +107,15 @@
 	text-decoration: none;
 }
 
-#sinaEmotion .pages .current{
+#sina-emotion .pages .current {
 	color: #333;
 	cursor: default;
 	background: #fff;
 }
 
-.sina-emotion{
+.sina-emotion {
 	border: 0;
+	width: 22px;
+	height: 22px;
 	vertical-align: text-bottom;
 }
