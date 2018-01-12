@@ -1,6 +1,6 @@
 {
   "name": "jquery-sina-emotion",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A jQuery plugin to create Sina Weibo emotion selection dialog.",
   "main": "index.js",
   "scripts": {

@@ -109,9 +109,10 @@
 <script src="src/jquery-sina-emotion.js"></script>
 <script>
 $('#form').bind({
-	submit: function () {
+	submit: function (e) {
 		var content = $('#content').val();
 		$('#article').html(content).parseEmotion();
+		e.preventDefault();
 	}
 });
 $('#face').bind({
