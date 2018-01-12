@@ -107,6 +107,7 @@
 
 <script src="https://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
 <script src="src/jquery-sina-emotion.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-57981079-1"></script>
 <script>
 $('#form').bind({
 	submit: function (e) {
@@ -123,6 +124,11 @@ $('#face').bind({
 		}
 	}
 });
+window.dataLayer = window.dataLayer || [];
+function gtag() {dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-57981079-1');
+gtag('event', 'pv', {event_category: 'jquery-sina-emotion'});
 </script>
 </body>
 </html>
