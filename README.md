@@ -1,6 +1,4 @@
-# jQuery Sina Emotion
-
-## 这是什么
+# jQuery Sina Emotion &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Lanfei/jquery-sina-emotion/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/jquery-sina-emotion.svg)](https://www.npmjs.com/package/jquery-sina-emotion)
 
 一个用于方便快速地创建新浪微博表情选择对话框的 jQuery 插件。
 
