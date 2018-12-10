@@ -90,7 +90,7 @@
 
 		initEvents();
 
-		$.getJSON('https://api.weibo.com/2/emotions.json?callback=?', {
+		$.getJSON('//api.weibo.com/2/emotions.json?callback=?', {
 			source: options.appKey,
 			language: options.language
 		}, function (res) {
@@ -110,6 +110,10 @@
 			for (var i = 0, l = data.length; i < l; ++i) {
 				item = data[i];
 				category = item['category'] || defCategory;
+				
+				// https support
+				item['url'] = item['url'].replace("http://","//");
+				item['icon'] = item['icon'].replace("http://","//");
 
 				if (!emotions[category]) {
 					emotions[category] = [];
