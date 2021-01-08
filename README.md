@@ -33,9 +33,7 @@ $(selector).click(function(event){
 
 ```js
 $.fn.sinaEmotion.options = {
-	rows: 72,				// 每页显示的表情数
-	language: 'cnname',		// 简体（cnname）、繁体（twname）
-	appKey: '1362404091'	// 新浪微博开放平台的应用ID
+    pageSize: 72 // 每页显示的表情数
 };
 ```
 
@@ -76,7 +74,8 @@ $(selector).parseEmotion();
 	- 兼容 webpack 等模块打包器
 	- 优化代码，修复一些偶现的 Bug
 	- 作为 npm 模块发布
-
+- 4.0.0
+	- 移除新浪微博接口请求
 
   [1]: http://www.clanfei.com/2012/08/1644.html
   [2]: http://weibo.com/122311620
