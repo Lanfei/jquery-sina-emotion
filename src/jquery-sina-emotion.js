@@ -26,8 +26,6 @@
 	        return;
         }
 
-		var item;
-		var category;
 		var $sinaEmotion = $('<div id="sina-emotion">' +
 			'<div class="switch">' +
 			'<a href="#" class="prev">&laquo;</a>' +
@@ -38,11 +36,9 @@
 			'<ul class="pages"></ul>' +
 			'</div>');
 
-		options = options || $.fn.sinaEmotion.options;
-
 		for (var i = 0, l = data.length; i < l; ++i) {
-			item = data[i];
-			category = item['category'] || defCategory;
+			var item = data[i];
+			var category = item['category'] || defCategory;
 
 			if (!emotions[category]) {
 				emotions[category] = [];
@@ -63,6 +59,7 @@
 
 		$('body').append($sinaEmotion);
 		initEvents();
+		options = $.fn.sinaEmotion.options;
 		initialized = true;
 	}
 
@@ -137,7 +134,6 @@
 	}
 
 	function showFacePage(page) {
-		var face;
 		var html = '';
 		var pageSize = options.pageSize;
 		var $sinaEmotion = $('#sina-emotion');
@@ -146,10 +142,12 @@
 		page = page || 0;
 
 		for (var i = page * pageSize, l = faces.length; i < l && i < (page + 1) * pageSize; ++i) {
-			face = faces[i];
+			var face = faces[i];
+			var icon = face['icon'].replace('http://', '//');
+			var phrase = face['phrase'];
 			html += '<li class="item">' +
 				'<a href="#" class="face">' +
-				'<img class="sina-emotion" src="' + face['icon'] + '" alt="' + face['phrase'] + '" />' +
+				'<img class="sina-emotion" src="' + icon + '" alt="' + phrase + '" />' +
 				'</a>' +
 				'</li>';
 		}
@@ -220,7 +218,7 @@
                 $1 = $1.replace(']', '&#93;');
                 return $1;
             }).replace(/\[[^\[\]]*?]/g, function ($1) {
-                var url = emotionsMap[$1];
+                var url = emotionsMap[$1].replace('http://', '//');
                 if (url) {
                     return '<img class="sina-emotion" src="' + url + '" alt="' + $1 + '" />';
                 }
